@@ -235,7 +235,7 @@ with tab_single:
                 )
                 st.caption("Cluster center (approx.) in original feature scale:")
                 st.dataframe(
-                    centers_orig.round(2).style.highlight_axis(axis=0), use_container_width=True
+                    centers_orig.round(2), use_container_width=True
                 )
 
                 st.caption("Your input vs. predicted cluster center:")
@@ -336,7 +336,7 @@ with tab_profiles:
         centers_orig = pd.DataFrame(
             scaler.inverse_transform(centers_scaled), columns=REQUIRED_FEATURES
         )
-        centers_orig.index = [f"Cluster {i}" for i in range(len(centers_orig))]
+        centers_orig.index = pd.Index([f"Cluster {i}" for i in range(len(centers_orig))])
         st.dataframe(centers_orig.round(2), use_container_width=True)
 
         # Normalized view per feature (min-max across clusters)
