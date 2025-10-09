@@ -7,9 +7,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-# ------------------------------
-# App configuration
-# ------------------------------
+
 st.set_page_config(
     page_title="Customer Segmentation App",
     layout="wide",
@@ -28,7 +26,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Features the model expects (order matters)
+
 REQUIRED_FEATURES: List[str] = [
     "Age",
     "Income",
@@ -89,11 +87,11 @@ def prepare_features(df: pd.DataFrame) -> Tuple[pd.DataFrame, List[str]]:
     """
     df = df.copy()
 
-    # Feature engineering if raw dataset columns are provided
+    
     df = compute_age(df)
     df = compute_total_spending(df)
 
-    # Keep only relevant columns when present
+    
     missing = [c for c in REQUIRED_FEATURES if c not in df.columns]
     return df, missing
 
@@ -105,7 +103,7 @@ def _coerce_numeric(df: pd.DataFrame, cols: List[str]) -> pd.DataFrame:
 
 
 def scale_features(df: pd.DataFrame, scaler, feature_order: List[str]) -> np.ndarray:
-    # Coerce to numeric and imputes with median of each column
+    
     X = _coerce_numeric(df[feature_order].copy(), feature_order)
     X = X.fillna(X.median())
     return scaler.transform(X)
@@ -118,13 +116,15 @@ def predict_clusters(df: pd.DataFrame, scaler, kmeans, feature_order: List[str])
 
 
 def get_cluster_descriptions(n_clusters: int) -> dict:
-    # Generic descriptions; adjust to your domain insights
+    
     base = {
         0: "High overall spend; likely omni-channel, low recency",
         1: "Moderate spend; frequent online interactions",
         2: "Store-focused buyers; medium spend",
         3: "Low spend and low activity; potential churn risk (high recency)",
         4: "Catalogue/occasional buyers; medium-high recency",
+        5: "Younger, low-income, low-spending customers",
+        6: "Older, high-income, high-spending customers",
     }
     return {i: base.get(i, "Segment description pending analysis") for i in range(n_clusters)}
 
@@ -250,16 +250,14 @@ with tab_single:
             except Exception:
                 pass
 
-            # Description
+            
             desc = get_cluster_descriptions(getattr(kmeans, "n_clusters", 5))
             st.info(f"Segment insight: {desc.get(cluster, 'N/A')}")
         except Exception as e:
             st.error(f"Prediction failed: {e}")
 
 
-# ------------------------------
-# Batch Prediction
-# ------------------------------
+
 with tab_batch:
     st.subheader("Batch assign segments from CSV")
     st.markdown(
