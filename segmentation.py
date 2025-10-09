@@ -123,8 +123,7 @@ def get_cluster_descriptions(n_clusters: int) -> dict:
         2: "Store-focused buyers; medium spend",
         3: "Low spend and low activity; potential churn risk (high recency)",
         4: "Catalogue/occasional buyers; medium-high recency",
-        5: "Younger, low-income, low-spending customers",
-        6: "Older, high-income, high-spending customers",
+        5: "Younger, low-income, low-spending customers"
     }
     return {i: base.get(i, "Segment description pending analysis") for i in range(n_clusters)}
 
