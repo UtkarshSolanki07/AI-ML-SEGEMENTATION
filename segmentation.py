@@ -118,11 +118,11 @@ def predict_clusters(df: pd.DataFrame, scaler, kmeans, feature_order: List[str])
 def get_cluster_descriptions(n_clusters: int) -> dict:
     
     base = {
-        0: "High overall spend; likely omni-channel, low recency",
-        1: "Moderate spend; frequent online interactions",
-        2: "Store-focused buyers; medium spend",
-        3: "Low spend and low activity; potential churn risk (high recency)",
-        4: "Catalogue/occasional buyers; medium-high recency",
+        0: "High-value, store‑loyal, very recent",
+        1: "Low spend, lapsed browsers",
+        2: "Very low spend, price‑sensitive but somewhat recent",
+        3: "Previously high‑value omni‑channel, now lapsed",
+        4: "Highest income, high spend, store‑heavy, lapsed",
         5: "Younger, low-income, low-spending customers"
     }
     return {i: base.get(i, "Segment description pending analysis") for i in range(n_clusters)}
