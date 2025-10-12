@@ -196,7 +196,7 @@ with tab_single:
         with col4:
             recency = st.number_input("Recency (days since last purchase)", min_value=0, max_value=10000, value=30)
 
-        submitted = st.form_submit_button("Predict Segment", use_container_width=True)
+        submitted = st.form_submit_button("Predict Segment", width='stretch')
 
     if submitted:
         try:
@@ -234,7 +234,7 @@ with tab_single:
                 )
                 st.caption("Cluster center (approx.) in original feature scale:")
                 st.dataframe(
-                    centers_orig.round(2), use_container_width=True
+                    centers_orig.round(2), width='stretch'
                 )
 
                 st.caption("Your input vs. predicted cluster center:")
@@ -245,7 +245,7 @@ with tab_single:
                     },
                     index=REQUIRED_FEATURES,
                 )
-                st.dataframe(comp.round(2), use_container_width=True)
+                st.dataframe(comp.round(2), width='stretch')
             except Exception:
                 pass
 
@@ -278,7 +278,7 @@ with tab_batch:
 
         if df is not None:
             st.caption("Preview of uploaded data:")
-            st.dataframe(df.head(), use_container_width=True)
+            st.dataframe(df.head(), width='stretch')
 
             # Prepare features
             df_prep, missing = prepare_features(df)
@@ -303,7 +303,7 @@ with tab_batch:
                         st.bar_chart(out["Cluster"].value_counts().sort_index())
                     with c2:
                         st.caption("Sample of results:")
-                        st.dataframe(out.head(20), use_container_width=True)
+                        st.dataframe(out.head(20), width='stretch')
 
                     # Download segmented data
                     csv_buf = StringIO()
@@ -313,7 +313,7 @@ with tab_batch:
                         data=csv_buf.getvalue(),
                         file_name="segmented_customers.csv",
                         mime="text/csv",
-                        use_container_width=True,
+                        width='stretch',
                     )
                 except Exception as e:
                     st.error(f"Batch prediction failed: {e}")
@@ -334,12 +334,12 @@ with tab_profiles:
             scaler.inverse_transform(centers_scaled), columns=REQUIRED_FEATURES
         )
         centers_orig.index = pd.Index([f"Cluster {i}" for i in range(len(centers_orig))])
-        st.dataframe(centers_orig.round(2), use_container_width=True)
+        st.dataframe(centers_orig.round(2), width='stretch')
 
         # Normalized view per feature (min-max across clusters)
         norm = (centers_orig - centers_orig.min()) / (centers_orig.max() - centers_orig.min() + 1e-9)
         st.caption("Normalized profiles (0-1 across clusters per feature):")
-        st.dataframe(norm.round(3), use_container_width=True)
+        st.dataframe(norm.round(3), width='stretch')
 
         # Descriptions
         desc = get_cluster_descriptions(getattr(kmeans, "n_clusters", 5))
