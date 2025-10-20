@@ -348,25 +348,6 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 ---
 
-## 🙏 Acknowledgments
-
-- **scikit-learn** for the K-Means implementation
-- **Streamlit** for the interactive web framework
-- **pandas & numpy** for data manipulation
-- Community feedback and contributions
-
----
-
-## 📞 Support
-
-Have questions or issues? 
-
-- 📖 Check the [Help & About](#-how-to-use) section in the app
-- 🐛 Open an [Issue](https://github.com/yourusername/customer-segmentation-ai/issues)
-- 💬 Start a [Discussion](https://github.com/yourusername/customer-segmentation-ai/discussions)
-
----
-
 ## 🎓 Learning Resources
 
 - [K-Means Clustering Guide](https://scikit-learn.org/stable/modules/clustering.html#k-means)
