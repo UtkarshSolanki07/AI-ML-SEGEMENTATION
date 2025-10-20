@@ -155,9 +155,7 @@ def render_model_status():
             )
 
 
-# ------------------------------
-# UI: Tabs
-# ------------------------------
+
 render_header()
 render_model_status()
 
@@ -169,9 +167,7 @@ tab_single, tab_batch, tab_profiles, tab_help = st.tabs([
 ])
 
 
-# ------------------------------
-# Single Prediction
-# ------------------------------
+
 with tab_single:
     st.subheader("Single customer input")
     with st.form("single_form"):
@@ -322,9 +318,6 @@ with tab_batch:
         st.info("Awaiting CSV upload.")
 
 
-# ------------------------------
-# Cluster Profiles
-# ------------------------------
 with tab_profiles:
     st.subheader("Cluster profiles (approximate)")
     try:
@@ -350,9 +343,7 @@ with tab_profiles:
         st.warning(f"Unable to display profiles: {e}")
 
 
-# ------------------------------
-# Help / About
-# ------------------------------
+
 with tab_help:
     st.subheader("How to use")
     st.markdown(
